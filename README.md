@@ -87,7 +87,29 @@ python train_model.py
 
 The model is trained for 2 epochs with a batch size of 128. It uses the RMSprop optimizer and categorical cross-entropy as the loss function.
 
+## Usage
 
+Once the model is trained, you can use it to predict the next word in a sequence of text. Here's an example of how to use the trained model for prediction:
+
+```python
+def predict_next_word(model, input_text, tokenizer):
+    input_sequence = tokenizer.texts_to_sequences([input_text])
+    input_sequence = pad_sequences(input_sequence, maxlen=WORD_LENGTH)
+    prediction = model.predict(input_sequence)
+    predicted_word = tokenizer.index_word[np.argmax(prediction)]
+    return predicted_word
+
+input_text = "I am going to"
+next_word = predict_next_word(model, input_text, tokenizer)
+print("Next word prediction:", next_word)
+```
+
+## Results
+
+- **Accuracy**: The model achieves reasonable accuracy given the training setup. For improving accuracy, consider using a larger number of epochs and increasing the dataset size.
+- **Suggestions**: The model provides next-word suggestions based on the context of the previous words.
+
+## Acknowledgements
 
 Special thanks to the authors of the datasets:
 - **Pooja Jain** for the Fake News Detection dataset
